@@ -16,10 +16,7 @@ from tensorflow.python.client import device_lib
 
 #Hyperparameters
 
-N_LAYERS = 3
-LAYER_SIZE = 64
-ACTIVATION = 'tanh'
-INPUT_SIZE = 1
+
 OUTPUT_SIZE = 23
 LEARNING_RATE = 0.01
 BETA_1 = 0.9
@@ -72,7 +69,7 @@ def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
 
 #Dataset processing
 
-n_prev_obs = 20
+n_prev_obs = 10
 
 dataset = pd.read_csv('kick_itandroids.txt', delimiter = "::", engine = 'python')
 dataset = dataset.dropna(axis=0, how='any')
@@ -96,7 +93,7 @@ print(train_X.shape)
 # design network
 model = Sequential()
 model.add(LSTM(25, input_shape=(train_X.shape[1], train_X.shape[2])))
-model.add(Dense(23))
+model.add(Dense(OUTPUT_SIZE))
 
 
 adam = Adam(lr=LEARNING_RATE, beta_1=BETA_1, beta_2=BETA_2, epsilon=EPSILON)
